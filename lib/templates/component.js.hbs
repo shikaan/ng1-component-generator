@@ -1,0 +1,22 @@
+(function(angular){
+    "use strict";
+
+    /*@ngInject*/
+    function {{ModuleName}}{{Component}}Factory(){
+        const COMPONENT_NAME = "{{component}}";
+        const MODULE_PATH = "{{{path}}}";
+
+        return {
+        	restrict: "E",
+        	scope: {},
+        	bindToController: true,
+        	controllerAs: "$ctrl",
+        	controller: "{{ModuleName}}{{controller}}Controller",
+        	templateUrl: `${MODULE_PATH}/${COMPONENT_NAME}/${COMPONENT_NAME}.template.html?v=1234567809` 
+        }
+
+    }
+
+    angular.module("{{module-name}}")
+        .directive("{{moduleName}}{{Component}}", {{ModuleName}}{{Component}}Factory);
+})(angular);
