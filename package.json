@@ -4,9 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./lib",
-    "engine": "node ./lib/mustache-engine.js"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +14,6 @@
     "mustache": "^2.3.0"
   },
   "bin": {
-    "ng1-generator": "lib/index.js"
+    "ng1-component-generator": "lib/index.js"
   }
 }
