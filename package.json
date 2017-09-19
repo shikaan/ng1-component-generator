@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node lib/index.js",
+    "start-prod": "NODE_ENV=prod node lib/index.js"
   },
   "author": "",
   "license": "ISC",
@@ -11,7 +13,8 @@
     "case": "^1.5.3",
     "commander": "^2.11.0",
     "mkdirp": "^0.5.1",
-    "mustache": "^2.3.0"
+    "mustache": "^2.3.0",
+    "npmlog": "^4.1.2"
   },
   "bin": {
     "ng1-component-generator": "lib/index.js"
