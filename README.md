@@ -20,7 +20,7 @@ Usage:
         -m, --module [value]  Angular module name [app]
         -h, --help            output usage information
 
-## What do this do?
+## What does this do?
 
 This module quickly scaffolds an AngularJS component with template, controller 
 and tests. 
