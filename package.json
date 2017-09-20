@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node lib/index.js",
-    "start-prod": "NODE_ENV=prod node lib/index.js"
+    "start": "NODE_ENV=test node lib/index.js",
+    "start-prod": "node lib/index.js",
+    "test": "mocha"
   },
   "author": "",
   "license": "ISC",
@@ -18,5 +19,8 @@
   },
   "bin": {
     "ng1-component-generator": "lib/index.js"
+  },
+  "devDependencies": {
+    "mocha": "^3.5.3"
   }
 }
