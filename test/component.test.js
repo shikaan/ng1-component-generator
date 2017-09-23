@@ -4,11 +4,11 @@ const proxyquire = require("proxyquire").noPreserveCache();
 const Case = require("case");
 const TemplateParser = require('./fixtures/template-parser');
 
-let controller = proxyquire('../lib/templates/controller', {
+let component = proxyquire('../lib/templates/component', {
 	'../_constants': {hbsPath: null}
 })
 
-describe("Templates: Controller", function () {
+describe("Templates: Component", function () {
 	it("should throw if template is missing", function () {
 		assert.throws(function () {
 			controller({})
@@ -18,8 +18,8 @@ describe("Templates: Controller", function () {
 	describe("AngularJS style guide", function () {
 		before(() => {
 			//Restoring
-			controller = require('../lib/templates/controller');
-			template = controller({
+			component = require('../lib/templates/component');
+			template = component({
 				path: './example/app',
 			    test: true,
 			    module: "appTest",
@@ -35,35 +35,36 @@ describe("Templates: Controller", function () {
 			assert.ok(TemplateParser.isUsingStrict(template));
 		})
 
-		it("should add ngInject annotation", () => {
-			assert.ok(TemplateParser.isUsingNgInject(template));	
-		})
-
-		it("should use controller as $ctrl syntax", () => {
-			const isUsingControllerAsSyntax = template.indexOf("let $ctrl = this;") > -1;
-			assert.ok(isUsingControllerAsSyntax);
-		})	
-
 		it("should have a kebab-case module name", () => {
 			const moduleName = TemplateParser.getModuleName(template);
 			assert.ok(moduleName === "app-test");
 		})
 
 		it("should have a name avoiding collisions", () => {
-			const controllerName = TemplateParser.getControllerName(template);
+			const componentName = TemplateParser.getComponentName(template);
+			assert.ok(componentName === "appTestHeader")
+		})
+
+		it("should have the right controller name", () => {
+			const controllerName = TemplateParser.getComponentControllerName(template);
 			assert.ok(controllerName === "AppTestHeaderController")
+		})
+
+		it("should be using controller as $ctrl syntax", () => {
+			assert.ok(template.indexOf("controllerAs: \"$ctrl\"") > -1);
+			assert.ok(template.indexOf("bindToController: true") > -1);
 		})
 	})
 
 	describe("Parameters error handling", function () {
 		before(() => {
 			//Restoring
-			controller = require('../lib/templates/controller');
+			controller = require('../lib/templates/component');
 		})
 
 		it("should throw in case of missing module", () => {
 			assert.throws(() => {
-				controller({
+				component({
 					path: './example/app',
 				    test: true,
 				    component: "header"
@@ -73,10 +74,20 @@ describe("Templates: Controller", function () {
 
 		it("should throw in case of missing component", () => {
 			assert.throws(() => {
-				controller({
+				component({
 					path: './example/app',
 				    test: true,
 				    module: "appTest"
+				})
+			})
+		})
+
+		it("should throw in case of missing path", () => {
+			assert.throws(() => {
+				component({
+				    test: true,
+				    module: "appTest",
+				    component: "header"
 				})
 			})
 		})
